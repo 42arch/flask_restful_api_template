@@ -1,0 +1,2 @@
+# flask_restful_api_template
+基于Flask构建的RESTfu API项目模板
