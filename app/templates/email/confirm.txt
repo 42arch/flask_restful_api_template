@@ -1,7 +1,0 @@
-亲爱的,
-    欢迎来到 <b>Flask-Test-Project</b>!
-    您的验证码为 &nbsp;&nbsp; <b>{email_code}</b> &nbsp;&nbsp; 赶快去完善注册信息吧！！！
-
-感谢您的支持和理解
-来自：Flask-Test-Project
-<p><small>{time}</small></p>
