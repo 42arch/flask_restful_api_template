@@ -6,12 +6,15 @@ import os
 from flask import Flask
 
 from app.apis import register_blueprint
+from app.extensions import init_extensions
 from config import envs
 
 
 def create_app(env):
     app = Flask(__name__)
     app.config.from_object(envs.get(env))
+
+    init_extensions(app=app)
 
     register_blueprint(app)
 

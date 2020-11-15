@@ -42,6 +42,7 @@ class Config:
 # 开发环境(sqllite数据库)
 class DevelopmentConfig(Config):
     DEBUG = True
+
     # dbinfo = {
     #     "ENGINE": "postgresql",
     #     "DRIVER": "psycopg2",
@@ -51,9 +52,17 @@ class DevelopmentConfig(Config):
     #     "PORT": '5432',
     #     "NAME": "testdb"
     # }
+    # SQLALCHEMY_DATABASE_URI = get_db_uri(dbinfo)
+    dbinfo = {
+        "ENGINE": "postgresql",
+        "DRIVER": "psycopg2",
+        "USER": "postgres",
+        "PASSWORD": "123",
+        "HOST": "localhost",
+        "PORT": '5432',
+        "NAME": "testdb"
+    }
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.dirname(__file__), 'example.db')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
 
 
 # 测试环境(postgresql数据库)
@@ -86,8 +95,8 @@ class ProductionConfig(Config):
 
 
 envs = {
-    "develop": DevelopmentConfig,
+    "development": DevelopmentConfig,
     "testing": TestConfig,
-    "product": ProductionConfig,
-    "default": DevelopmentConfig
+    "production": ProductionConfig,
+    "default": TestConfig
 }
