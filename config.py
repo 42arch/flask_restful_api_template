@@ -53,16 +53,8 @@ class DevelopmentConfig(Config):
     #     "NAME": "testdb"
     # }
     # SQLALCHEMY_DATABASE_URI = get_db_uri(dbinfo)
-    dbinfo = {
-        "ENGINE": "postgresql",
-        "DRIVER": "psycopg2",
-        "USER": "postgres",
-        "PASSWORD": "123",
-        "HOST": "localhost",
-        "PORT": '5432',
-        "NAME": "testdb"
-    }
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.dirname(__file__), 'example.db')
+
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.dirname(__file__), 'app.db')
 
 
 # 测试环境(postgresql数据库)
@@ -98,5 +90,5 @@ envs = {
     "development": DevelopmentConfig,
     "testing": TestConfig,
     "production": ProductionConfig,
-    "default": TestConfig
+    "default": DevelopmentConfig
 }

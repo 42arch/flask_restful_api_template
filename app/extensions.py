@@ -10,7 +10,6 @@ from flasgger import Swagger
 db = SQLAlchemy()
 migrate = Migrate()
 mail = Mail()
-swagger = Swagger()
 
 template = {
   "swagger": "2.0",
@@ -34,14 +33,15 @@ template = {
   ],
   "operationId": "getmyData"
 }
+
 swagger = Swagger(template=template)
 
 
 def init_extensions(app):
     # ORM支持
-    db.init_app(app=app)
+    db.init_app(app)
     # 数据库迁移
-    migrate.init_app(app=app, db=db)
+    migrate.init_app(app, db)
     # 邮件支持
     mail.init_app(app=app)
     # swagger文档支持
