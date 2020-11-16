@@ -2,12 +2,13 @@
 # @Author: dan
 # @Desc: 初始化项目使用的第三方模块
 # @File : extensions.py
-
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from flasgger import Swagger
 
 db = SQLAlchemy()
+migrate = Migrate()
 mail = Mail()
 swagger = Swagger()
 
@@ -37,7 +38,12 @@ swagger = Swagger(template=template)
 
 
 def init_extensions(app):
+    # ORM支持
     db.init_app(app=app)
+    # 数据库迁移
+    migrate.init_app(app=app, db=db)
+    # 邮件支持
     mail.init_app(app=app)
+    # swagger文档支持
     swagger.init_app(app=app)
 
