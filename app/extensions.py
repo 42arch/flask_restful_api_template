@@ -39,9 +39,10 @@ swagger = Swagger(template=template)
 
 def init_extensions(app):
     # ORM支持
-    db.init_app(app)
+    db.init_app(app=app)
     # 数据库迁移
-    migrate.init_app(app, db)
+    # migrate.init_app(app=app, db=db)
+    migrate.init_app(app=app, db=db, render_as_batch=True)  # 数据库为sqlite时
     # 邮件支持
     mail.init_app(app=app)
     # swagger文档支持
