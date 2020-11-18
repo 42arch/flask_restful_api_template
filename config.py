@@ -22,12 +22,16 @@ def get_db_uri(dbinfo):
 class Config:
     TESTING = False
     DEBUG = False
+    # 错误跟踪信息显示
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # 打印模型操作对应的SQL语句
+    SQLALCHEMY_ECHO = True
     SECRET_KEY = 'RANDOWSECRETLEYSSSS8S73F'
 
     # 日志 配置
 
     # session 设置
+    # session存储方式
     SESSION_TYPE = 'redis'
     SESSION_COOKIE_SECURE = True
     SESSION_USE_SIGNER = True

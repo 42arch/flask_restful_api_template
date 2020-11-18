@@ -1,8 +1,10 @@
 # @Time : 2020/11/16 22:55
 # @Author: dan
 # @File : user_api.py
+from flask import make_response
 from flask_restful import Resource, reqparse, abort, fields, marshal_with, marshal
 
+from app.apis.auth.common import get_user
 from app.extensions import cache
 from app.models.user import *
 
@@ -36,25 +38,6 @@ single_user_fields = {
     'msg': fields.String,
     'data': fields.Nested(user_fields)
 }
-
-
-# 用户数据查询方法
-def get_user(user_identity):
-    if not user_identity:
-        return None
-    # 根据id查询
-    user = User.query.get(user_identity)
-    if user:
-        return user
-    # 根据邮箱查询
-    user = User.query.filter(User.email == user_identity).first()
-    if user:
-        return user
-    # 根据用户名查询
-    user = User.query.filter(User.username == user_identity).first()
-    if user:
-        return user
-    return None
 
 
 class UsersResource(Resource):
@@ -125,16 +108,18 @@ class UsersResource(Resource):
                 abort(401, msg='password is not correct')
             if user.is_deleted:
                 abort(401, msg='user does not exist')
-            token = user.generate_auth_token(expiration=30)
+            token = user.generate_auth_token(expiration=60 * 1)
             # token存入缓存中
-            print(token)
-            cache.set(token, user.id, timeout=30)
+            cache.set(token, user.id, timeout=60 * 1)
+
             data = {
                 'status': HTTP_SUCCESS,
                 'msg': '用户登录成功',
-                'token': token,
+                # 'token': token,
                 'expiration': 3600
             }
-            return data
+            response = make_response(data)
+            response.headers['token'] = token  # 将token放到headers中
+            return response
         else:
             abort(400, msg='please input the correct argument')

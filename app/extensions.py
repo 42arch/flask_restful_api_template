@@ -13,7 +13,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 mail = Mail()
 session = Session()
-cache = Cache()
+cache = Cache(config={'CACHE_TYPE': 'redis'})
 
 template = {
   "swagger": "2.0",
@@ -52,7 +52,7 @@ def init_extensions(app):
     # 会话
     session.init_app(app=app)
     # 缓存
-    cache.init_app(app=app, config={'CACHE_TYPE': 'redis'})
+    cache.init_app(app=app)
     # swagger文档支持
     swagger.init_app(app=app)
 

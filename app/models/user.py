@@ -40,17 +40,17 @@ class User(BaseModel):
     #     s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
     #     return s.dumps({'confirm': self.id}).decode('utf-8')
 
-    # def confirm(self, token):
-    #     s = Serializer(current_app.config['SECRET_KEY'])
-    #     try:
-    #         data = s.loads(token.encode('utf-8'))
-    #     except:
-    #         return False
-    #     if data.get('confirm') != self.id:
-    #         return False
-    #     self.confirmed = True
-    #     db.session.add(self)
-    #     return True
+    def confirm(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token.encode('utf-8'))
+        except Exception as e:
+            return False
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+        db.session.add(self)
+        return True
 
     def __repr__(self):
         return '<User %r>' % self.username
