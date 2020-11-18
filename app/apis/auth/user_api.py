@@ -125,7 +125,7 @@ class UsersResource(Resource):
                 abort(401, msg='password is not correct')
             if user.is_deleted:
                 abort(401, msg='user does not exist')
-            token = user.generate_auth_token(exporation=30)
+            token = user.generate_auth_token(expiration=30)
             # token存入缓存中
             print(token)
             cache.set(token, user.id, timeout=30)
