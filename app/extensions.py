@@ -2,14 +2,18 @@
 # @Author: dan
 # @Desc: 初始化项目使用的第三方模块
 # @File : extensions.py
+from flask_caching import Cache
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
+from flask_session import Session
 from flasgger import Swagger
 
 db = SQLAlchemy()
 migrate = Migrate()
 mail = Mail()
+session = Session()
+cache = Cache()
 
 template = {
   "swagger": "2.0",
@@ -45,6 +49,10 @@ def init_extensions(app):
     migrate.init_app(app=app, db=db, render_as_batch=True)  # 数据库为sqlite时
     # 邮件支持
     mail.init_app(app=app)
+    # 会话
+    session.init_app(app=app)
+    # 缓存
+    cache.init_app(app=app, config={'CACHE_TYPE': 'redis'})
     # swagger文档支持
     swagger.init_app(app=app)
 

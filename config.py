@@ -1,5 +1,7 @@
 import os
 
+import redis
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_FOLDER = os.path.join(BASE_DIR, 'templates')
 
@@ -29,6 +31,8 @@ class Config:
     SESSION_TYPE = 'redis'
     SESSION_COOKIE_SECURE = True
     SESSION_USE_SIGNER = True
+    SESSION_KEY_PREFIX = 'Session:'
+    SESSION_REDIS = redis.Redis(host='127.0.0.1', port='6379')
 
     # 邮件配置
     MAIL_SERVER = "smtp.163.com"
