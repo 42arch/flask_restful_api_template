@@ -1,3 +1,4 @@
+import logging
 import os
 
 import redis
@@ -29,6 +30,7 @@ class Config:
     SECRET_KEY = 'RANDOWSECRETLEYSSSS8S73F'
 
     # 日志 配置
+    LOG_LEVEL = logging.DEBUG
 
     # session 设置
     # session存储方式
@@ -82,6 +84,7 @@ class TestConfig(Config):
 
 # 生产环境（mysql数据库）
 class ProductionConfig(Config):
+    LOG_LEVEL = logging.WARNING
     dbinfo = {
         "ENGINE": "mysql",
         "DRIVER": "pymysql",

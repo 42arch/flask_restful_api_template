@@ -13,6 +13,5 @@ app = create_app(env=env)
 manager = Manager(app=app)
 manager.add_command('db', MigrateCommand)
 
-
 if __name__ == '__main__':
     manager.run()
